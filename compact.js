@@ -30,7 +30,7 @@ spacingSettings.forEach(setting=>{
  row.querySelectorAll('input').forEach(input=>input.addEventListener('input',e=>{if(e.target.value!=='')applySpacing(e.target.value)}));applySpacing(value);
 });
 document.querySelectorAll(".compact-player").forEach(root=>{
-const plain=root.classList.contains('compact-player--plain')||root.classList.contains('compact-player--metadata');
+const plain=root.classList.contains('compact-player--plain')||root.classList.contains('compact-player--metadata')||root.classList.contains('compact-player--inline');
 const $=s=>root.querySelector(`[data-control="${s.slice(1)}"]`),audio=$('#cp-audio'),play=$('#cp-play'),canvas=$('#cp-canvas'),ctx=canvas.getContext('2d'),seek=$('#cp-seek');
 const fmt=t=>Number.isFinite(t)?`${String(Math.floor(t/60)).padStart(2,'0')}:${String(Math.floor(t%60)).padStart(2,'0')}`:'0:00';let samples=Array.from({length:160},(_,i)=>.2+Math.abs(Math.sin(i*1.71)*Math.cos(i*.43))*.8),raf,hover=-1,context,analyser,frequencies;let renderedBars=[],lastWaveFrame=0;
 const mobileViewport=matchMedia('(max-width:639px)');audio.volume=mobileViewport.matches?1:.75;
@@ -51,7 +51,7 @@ mobileViewport.addEventListener('change',e=>{if(e.matches){audio.volume=1;audio.
 
 // Compare one prototype at a time without altering the article around it.
 const playerVariants=Array.from(document.querySelectorAll('.compact-player'));
-const variantNames=['С фоном','С обводкой','Минимальный','С названием'];
+const variantNames=['С фоном','С обводкой','Минимальный','С названием','Артист и трек'];
 const variantTabs=document.createElement('div');
 variantTabs.className='player-variant-tabs';variantTabs.setAttribute('role','tablist');variantTabs.setAttribute('aria-label','Варианты аудиоплеера');
 let activeVariant=0;try{activeVariant=Math.max(0,Math.min(playerVariants.length-1,Number(localStorage.getItem('player-variant'))||0))}catch{}
