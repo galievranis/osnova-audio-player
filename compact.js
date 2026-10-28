@@ -57,8 +57,17 @@ variantTabs.className='player-variant-tabs';variantTabs.setAttribute('role','tab
 let activeVariant=0;try{activeVariant=Math.max(0,Math.min(playerVariants.length-1,Number(localStorage.getItem('player-variant'))||0))}catch{}
 playerVariants.forEach((player,index)=>{
  const button=document.createElement('button');button.type='button';button.id=`variant-tab-${index}`;button.textContent=`${index+1}. ${variantNames[index]}`;button.setAttribute('role','tab');button.setAttribute('aria-controls',player.id);player.setAttribute('role','tabpanel');player.setAttribute('aria-labelledby',button.id);
- button.addEventListener('click',()=>selectVariant(index));button.addEventListener('keydown',event=>{let next=index;if(event.key==='ArrowRight')next=(index+1)%playerVariants.length;else if(event.key==='ArrowLeft')next=(index+playerVariants.length-1)%playerVariants.length;else if(event.key==='Home')next=0;else if(event.key==='End')next=playerVariants.length-1;else return;event.preventDefault();selectVariant(next);variantTabs.children[next].focus()});variantTabs.append(button);
+ button.addEventListener('click',()=>selectVariant(index));button.addEventListener('keydown',event=>{let next=index;if(event.key==='ArrowRight'||event.key==='ArrowDown')next=(index+1)%playerVariants.length;else if(event.key==='ArrowLeft'||event.key==='ArrowUp')next=(index+playerVariants.length-1)%playerVariants.length;else if(event.key==='Home')next=0;else if(event.key==='End')next=playerVariants.length-1;else return;event.preventDefault();selectVariant(next);variantTabs.children[next].focus()});variantTabs.append(button);
 });
 playerVariants[0].before(variantTabs);
 function selectVariant(index){playerVariants.forEach((player,i)=>{const selected=i===index;if(!selected)player.querySelector('audio').pause();player.hidden=!selected;const button=variantTabs.children[i];button.setAttribute('aria-selected',String(selected));button.tabIndex=selected?0:-1});try{localStorage.setItem('player-variant',String(index))}catch{}}
 selectVariant(activeVariant);
+
+const variantToggle=document.createElement('button');
+variantToggle.type='button';variantToggle.className='player-variant-toggle';variantToggle.textContent='Варианты плеера';variantToggle.setAttribute('aria-expanded','false');variantToggle.setAttribute('aria-controls','floating-player-variants');
+variantTabs.id='floating-player-variants';variantTabs.hidden=true;variantTabs.setAttribute('aria-orientation','vertical');document.body.append(variantToggle,variantTabs);
+function closeVariantMenu(){variantTabs.hidden=true;variantToggle.setAttribute('aria-expanded','false')}
+variantToggle.addEventListener('click',()=>{variantTabs.hidden=!variantTabs.hidden;variantToggle.setAttribute('aria-expanded',String(!variantTabs.hidden))});
+variantTabs.addEventListener('click',event=>{if(event.target.closest('button')){closeVariantMenu();variantToggle.focus()}});
+document.addEventListener('pointerdown',event=>{if(!variantTabs.contains(event.target)&&!variantToggle.contains(event.target))closeVariantMenu()});
+document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!variantTabs.hidden){closeVariantMenu();variantToggle.focus()}});
