@@ -88,3 +88,21 @@
 .compact-player--metadata .cp-speed-wrap{grid-column:4;grid-row:3}
 .compact-player--metadata>a.cp-icon{grid-column:5;grid-row:3;justify-self:center}
 @media(max-width:639px){.compact-player--metadata{padding:16px;gap:12px 8px;border-radius:16px}.cp-cover{width:52px;height:52px}.cp-track-info{gap:10px}.cp-track-copy strong{font-size:15px}.cp-track-copy strong span{display:block;font-size:12px}.cp-track-label{font-size:8px;letter-spacing:1px}.cp-track-copy{gap:4px}}
+/* Compact metadata layout inspired by the supplied reference. */
+.compact-player--metadata{grid-template-columns:36px minmax(0,1fr) auto auto auto;gap:8px 10px;padding:14px 16px;border-radius:14px}
+.compact-player--metadata .cp-play{grid-column:1;grid-row:1;width:36px;height:36px}
+.compact-player--metadata .cp-track-info{grid-column:2;grid-row:1;gap:10px}
+.compact-player--metadata .cp-cover{width:36px;height:36px;border-radius:7px}
+.compact-player--metadata .cp-track-label{display:none}
+.compact-player--metadata .cp-track-copy{gap:3px}
+.compact-player--metadata .cp-track-copy strong{font-size:14px;line-height:18px}
+.compact-player--metadata .cp-track-copy strong span{font-size:11px}
+.compact-player--metadata .cp-artist{font-size:12px}
+.compact-player--metadata .cp-volume{grid-column:3;grid-row:1}
+.compact-player--metadata .cp-volume input{width:42px}
+.compact-player--metadata .cp-speed-wrap{grid-column:4;grid-row:1}
+.compact-player--metadata>a.cp-icon{grid-column:5;grid-row:1}
+.compact-player--metadata .cp-wave,.compact-player--metadata .cp-wave canvas{height:16px}
+.compact-player--metadata .cp-timers{grid-column:1/-1;grid-row:3;display:flex;justify-content:space-between;width:100%;font-size:11px;line-height:14px;margin-top:-6px}
+.compact-player--metadata .cp-time-divider{display:none}
+@media(max-width:639px){.compact-player--metadata{grid-template-columns:34px minmax(0,1fr) auto auto;gap:8px;padding:12px}.compact-player--metadata .cp-speed-wrap{grid-column:3}.compact-player--metadata>a.cp-icon{grid-column:4}.compact-player--metadata .cp-track-info{gap:8px}.compact-player--metadata .cp-cover{width:32px;height:32px}.compact-player--metadata .cp-track-copy strong{font-size:13px}.compact-player--metadata .cp-track-copy strong span{display:block;font-size:10px}}

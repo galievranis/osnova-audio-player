@@ -30,7 +30,7 @@ spacingSettings.forEach(setting=>{
  row.querySelectorAll('input').forEach(input=>input.addEventListener('input',e=>{if(e.target.value!=='')applySpacing(e.target.value)}));applySpacing(value);
 });
 document.querySelectorAll(".compact-player").forEach(root=>{
-const plain=root.classList.contains('compact-player--plain');
+const plain=root.classList.contains('compact-player--plain')||root.classList.contains('compact-player--metadata');
 const $=s=>root.querySelector(`[data-control="${s.slice(1)}"]`),audio=$('#cp-audio'),play=$('#cp-play'),canvas=$('#cp-canvas'),ctx=canvas.getContext('2d'),seek=$('#cp-seek');
 const fmt=t=>Number.isFinite(t)?`${String(Math.floor(t/60)).padStart(2,'0')}:${String(Math.floor(t%60)).padStart(2,'0')}`:'0:00';let samples=Array.from({length:160},(_,i)=>.2+Math.abs(Math.sin(i*1.71)*Math.cos(i*.43))*.8),raf,hover=-1,context,analyser,frequencies;let renderedBars=[],lastWaveFrame=0;
 const mobileViewport=matchMedia('(max-width:639px)');audio.volume=mobileViewport.matches?1:.75;
