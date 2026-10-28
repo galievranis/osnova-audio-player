@@ -1,0 +1,67 @@
+.compact-player{--cp-blue:#0b5dd7;display:flex;align-items:center;gap:12px;background:#f4f4f4;border-radius:12px;padding:12px 14px;width:100%;min-width:0;position:relative;box-sizing:border-box;color:#808080;font:13px/1 Roboto,system-ui,sans-serif}.compact-player button{font:inherit;border:0;cursor:pointer;flex-shrink:0}.compact-player button:focus-visible,.compact-player a:focus-visible,.compact-player input:focus-visible{outline:2px solid #0b5dd7;outline-offset:4px}.cp-play{width:36px;height:36px;border-radius:50%;background:var(--cp-blue);display:grid;place-items:center;transition:background .15s,transform .15s}.cp-play:hover{background:#2664bf}.cp-play:active{transform:scale(.94)}.cp-play img{width:20px;height:20px;filter:invert(1)}.cp-time,.cp-duration{font-variant-numeric:tabular-nums;font-size:12px;white-space:nowrap}.cp-time{color:#595959;min-width:28px}.cp-wave{height:32px;flex:1;min-width:40px;position:relative}.cp-wave canvas{width:100%;height:32px;display:block}.cp-wave input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}.cp-wave:focus-within{outline:none}.cp-tooltip{position:absolute;top:-24px;transform:translateX(-50%);background:#232324;color:white;font-size:11px;padding:4px 6px;border-radius:5px;pointer-events:none;opacity:0}.cp-wave:hover .cp-tooltip{opacity:1}.cp-speed{height:30px;min-width:30px;color:#595959;background:transparent;border-radius:6px;font-weight:500!important}.cp-speed:hover,.cp-icon:hover{background:#e5e5e5}.cp-speed-wrap{position:relative}.cp-menu{position:absolute;bottom:43px;right:-10px;width:140px;padding:6px;background:white;border-radius:10px;box-shadow:0 4px 20px #0002;z-index:3}.cp-menu[hidden]{display:none}.cp-menu>span{display:block;font-size:12px;color:#808080;padding:8px}.cp-menu button{display:block;width:100%;text-align:left;background:none;padding:9px 10px;border-radius:6px;color:#595959}.cp-menu button.selected{color:#0b5dd7;background:#e6effd}.cp-menu button:hover{background:#f2f2f2}.cp-icon{display:grid;place-items:center;width:28px;height:32px;border-radius:6px;background:none}.cp-icon img{width:20px;height:20px;opacity:.6}.cp-volume{display:flex;align-items:center;gap:4px}.cp-volume input{width:42px;height:3px;accent-color:#0b5dd7;cursor:pointer}.cp-error{position:absolute;top:100%;left:10px;color:#d6333e;font-size:12px;padding:5px;background:white}.variant-switch{position:fixed;bottom:18px;right:18px;background:#fff;border:1px solid #e5e5e5;border-radius:30px;padding:5px;display:flex;gap:4px;z-index:10;box-shadow:0 2px 10px #0001;font:13px Roboto,system-ui,sans-serif}.variant-switch a{padding:8px 12px;border-radius:20px;text-decoration:none;color:#595959}.variant-switch a.current{background:#e6effd;color:#0b5dd7}@media(max-width:639px){.compact-player{gap:8px;padding:10px;border-radius:10px}.cp-volume input{display:none}.cp-duration{display:none}.cp-play{width:34px;height:34px}.cp-wave{height:28px}.cp-wave canvas{height:28px}.variant-switch{bottom:80px;right:12px;font-size:12px}}@media(prefers-reduced-motion:reduce){.compact-player *{transition:none!important}}
+.cp-volume input{-webkit-appearance:none;appearance:none;background:linear-gradient(to right,#0b5dd7 75%,#d2d5da 75%);border:0;border-radius:4px;padding:0;margin:0;box-shadow:none;min-height:3px}.cp-volume input::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:9px;height:9px;background:#0b5dd7;border-radius:50%;border:0;box-shadow:none}.cp-volume input::-moz-range-thumb{width:9px;height:9px;background:#0b5dd7;border-radius:50%;border:0}.cp-volume{position:relative}
+
+/* Match the original comment field capsule at every breakpoint. */
+.compact-player{border-radius:999px}
+@media(max-width:639px){.compact-player{border-radius:999px}}
+
+.compact-player .cp-wave input:focus-visible{outline:none}
+
+.cp-download-arrow{transform:none}
+@media(max-width:639px){.compact-player .cp-volume{display:none}}
+
+/* Timer grouping and volume interaction follow the provided video player. */
+.cp-timers{display:flex;align-items:center;gap:3px;white-space:nowrap;font-size:13px;line-height:18px;font-weight:500;font-variant-numeric:tabular-nums;color:#595959}
+.cp-timers .cp-time,.cp-timers .cp-duration{display:inline;font-size:inherit;min-width:0;color:inherit}
+.cp-time-divider{color:#808080}
+.cp-volume input{width:56px;height:6px;min-height:6px}
+.cp-volume input::-webkit-slider-thumb{width:12px;height:12px;opacity:0;transition:opacity .15s}
+.cp-volume input::-moz-range-thumb{width:12px;height:12px;opacity:0;transition:opacity .15s}
+.cp-volume:hover input::-webkit-slider-thumb,.cp-volume:focus-within input::-webkit-slider-thumb{opacity:0}
+.cp-volume:hover input::-moz-range-thumb,.cp-volume:focus-within input::-moz-range-thumb{opacity:0}
+@media(max-width:639px){.cp-timers{font-size:11px;gap:2px}.compact-player{gap:7px}}
+/* The saved page lost the horizontal values of this original rule. */
+.content__reactions{padding-left:var(--layout-content-offset-x,24px);padding-right:var(--layout-content-offset-x,24px)}
+/* Player button hover targets are circular, like platform controls. */
+.compact-player .cp-icon{width:32px;height:32px;border-radius:50%;flex-shrink:0}
+.compact-player .cp-speed{width:32px;height:32px;border-radius:50%}
+
+.compact-player--outline{background:transparent;box-shadow:inset 0 0 0 1px var(--theme-color-border,#e5e5e5);margin-top:12px}
+
+.cp-tooltip{white-space:nowrap;width:max-content;max-width:none;line-height:16px;box-sizing:border-box}
+
+@media(min-width:640px){
+ .compact-player:not(.compact-player--outline) .cp-volume input{width:0;opacity:0;pointer-events:none;transition:width .18s ease,opacity .18s ease}
+ .compact-player:not(.compact-player--outline) .cp-volume{gap:0}
+ .compact-player:not(.compact-player--outline) .cp-volume:hover input,
+ .compact-player:not(.compact-player--outline) .cp-volume:has(:focus-visible) input{width:56px;opacity:1;pointer-events:auto}
+ .compact-player:not(.compact-player--outline) .cp-volume:hover,
+ .compact-player:not(.compact-player--outline) .cp-volume:has(:focus-visible){gap:4px}
+}
+
+.wave-tuning{display:flex;align-items:center;gap:10px;margin:16px 4px 4px;color:#808080;font:12px/18px Roboto,system-ui,sans-serif}
+.wave-tuning label{white-space:nowrap}
+.wave-tuning input[type=range]{flex:1;min-width:50px;max-width:200px;accent-color:#0b5dd7;cursor:pointer}
+.wave-tuning input[type=number]{width:55px;padding:4px 6px;border:1px solid #e5e5e5;border-radius:6px;background:#fff;color:#595959;font:inherit;font-variant-numeric:tabular-nums}
+
+/* Floating prototype tuning panel, independent of article layout. */
+.wave-tuning{position:fixed;right:20px;bottom:20px;z-index:20;width:360px;max-width:calc(100vw - 32px);margin:0;padding:16px 18px;background:#fff;border:1px solid #e5e5e5;border-radius:14px;box-shadow:0 6px 28px #0002;box-sizing:border-box}
+.wave-tuning label{color:#595959}
+@media(max-width:639px){.wave-tuning{right:16px;bottom:calc(76px + env(safe-area-inset-bottom));padding:12px;gap:8px}}
+.wave-tuning input[type=range]{-webkit-appearance:none;appearance:none;height:6px;min-height:6px;padding:0;border:0;border-radius:999px;background:#d2d5da;box-shadow:none}
+.wave-tuning input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:14px;height:14px;border:0;border-radius:50%;background:#0b5dd7;cursor:pointer}
+.wave-tuning input[type=range]::-moz-range-thumb{width:14px;height:14px;border:0;border-radius:50%;background:#0b5dd7;cursor:pointer}
+
+.wave-tuning{display:flex;flex-direction:column;align-items:stretch;gap:14px;width:390px}
+.wave-tuning-row{display:flex;align-items:center;gap:10px;min-width:0}
+.wave-tuning-row label{width:100px;flex-shrink:0}
+.wave-tuning-row input[type=range]{width:0;flex:1}
+.wave-tuning-row>span{width:16px;flex-shrink:0}
+.compact-player .cp-wave,.compact-player .cp-wave canvas{height:var(--cp-wave-height,32px)}
+@media(max-width:639px){.wave-tuning-row{gap:7px}.wave-tuning-row label{width:95px}}
+.compact-player:not(.compact-player--outline) .cp-volume{flex-direction:row-reverse}
+
+.compact-player{padding:var(--cp-padding-y,12px) var(--cp-padding-x,14px);gap:var(--cp-control-gap,12px)}
+.wave-tuning{width:440px;max-height:calc(100dvh - 110px);overflow:auto}
+.wave-tuning-row label{width:135px;white-space:normal}
+@media(max-width:639px){.compact-player{padding:var(--cp-padding-y,10px) var(--cp-padding-x,10px);gap:var(--cp-control-gap,7px)}.wave-tuning-row label{width:115px}.wave-tuning-row input[type=range]{min-width:30px}}
