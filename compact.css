@@ -69,3 +69,5 @@
 .compact-player--plain{background:transparent;box-shadow:none;margin-top:12px}
 .compact-player--plain .cp-time-divider,.compact-player--plain .cp-duration{display:none}
 .compact-player--plain .cp-wave,.compact-player--plain .cp-wave canvas{height:32px}
+/* The minimal variant has no internal padding, independently of tuning. */
+.compact-player.compact-player--plain{padding:0}
