@@ -135,3 +135,14 @@
 .player-variant-tabs button{text-align:left;border-radius:8px;background:transparent}
 .compact-player{margin-top:0}
 @media(max-width:639px){.player-variant-toggle{right:16px;top:72px}.player-variant-tabs{right:16px;top:122px}}
+
+/* Persistent floating variant list. */
+.player-variant-tabs{top:76px}
+/* All variants share the same expanding volume control. */
+.compact-player .cp-volume{flex-direction:row-reverse;gap:0}
+@media(min-width:640px){
+ .compact-player .cp-volume input{width:0;opacity:0;pointer-events:none;transition:width .18s ease,opacity .18s ease}
+ .compact-player .cp-volume:hover input,.compact-player .cp-volume:has(:focus-visible) input{width:56px;opacity:1;pointer-events:auto}
+ .compact-player .cp-volume:hover,.compact-player .cp-volume:has(:focus-visible){gap:4px}
+}
+@media(max-width:639px){.player-variant-tabs{top:72px}.compact-player .cp-volume{display:none}}
