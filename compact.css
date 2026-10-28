@@ -106,3 +106,17 @@
 .compact-player--metadata .cp-timers{grid-column:1/-1;grid-row:3;display:flex;justify-content:space-between;width:100%;font-size:11px;line-height:14px;margin-top:-6px}
 .compact-player--metadata .cp-time-divider{display:none}
 @media(max-width:639px){.compact-player--metadata{grid-template-columns:34px minmax(0,1fr) auto auto;gap:8px;padding:12px}.compact-player--metadata .cp-speed-wrap{grid-column:3}.compact-player--metadata>a.cp-icon{grid-column:4}.compact-player--metadata .cp-track-info{gap:8px}.compact-player--metadata .cp-cover{width:32px;height:32px}.compact-player--metadata .cp-track-copy strong{font-size:13px}.compact-player--metadata .cp-track-copy strong span{display:block;font-size:10px}}
+/* Progress first, then a compact control row with track identity. */
+.compact-player--metadata{grid-template-columns:36px minmax(0,1fr) auto auto auto auto;gap:12px 10px;padding:14px 16px}
+.compact-player--metadata .cp-wave{grid-column:1/-1;grid-row:1}
+.compact-player--metadata .cp-cover{display:none}
+.compact-player--metadata .cp-play{grid-column:1;grid-row:2}
+.compact-player--metadata .cp-track-info{grid-column:2;grid-row:2}
+.compact-player--metadata .cp-track-copy strong{font-size:14px}
+.compact-player--metadata .cp-track-copy strong span{font-size:11px}
+.compact-player--metadata .cp-timers{grid-column:3;grid-row:2;justify-content:flex-start;width:auto;gap:3px;margin:0;white-space:nowrap}
+.compact-player--metadata .cp-time-divider{display:inline}
+.compact-player--metadata .cp-volume{grid-column:4;grid-row:2}
+.compact-player--metadata .cp-speed-wrap{grid-column:5;grid-row:2}
+.compact-player--metadata>a.cp-icon{grid-column:6;grid-row:2}
+@media(max-width:639px){.compact-player--metadata{grid-template-columns:34px minmax(0,1fr) auto auto;gap:10px 8px;padding:12px}.compact-player--metadata .cp-track-info{grid-column:2}.compact-player--metadata .cp-timers{grid-column:2;grid-row:3}.compact-player--metadata .cp-speed-wrap{grid-column:3;grid-row:2}.compact-player--metadata>a.cp-icon{grid-column:4;grid-row:2}}
