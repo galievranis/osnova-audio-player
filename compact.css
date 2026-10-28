@@ -180,3 +180,23 @@
 .compact-player--metadata .cp-wave{height:20px;bottom:-7px;overflow:visible;border-radius:0}
 .compact-player--metadata .cp-wave canvas{position:absolute;top:7px;border-radius:0 0 14px 14px}
 .compact-player--metadata .cp-tooltip{bottom:24px}
+
+/* Two minimal reference layouts. */
+.compact-player--simple{background:transparent;border:0;box-shadow:none;padding:0;gap:14px;border-radius:0;color:#000}
+.compact-player--simple .cp-speed-wrap{display:none}
+.compact-player--simple .cp-play{width:32px;height:36px;background:none;box-shadow:none;border-radius:50%}
+.compact-player--simple .cp-play:hover{background:#f2f2f2;box-shadow:none}
+.compact-player--simple .cp-play img{width:24px;height:24px;filter:none}
+.compact-player--simple-row .cp-play img{filter:invert(23%) sepia(97%) saturate(3072%) hue-rotate(210deg) brightness(87%) contrast(99%)}
+.compact-player--simple .cp-timers{font-size:15px;line-height:20px;font-weight:500;color:#000;gap:4px}
+.compact-player--simple .cp-time,.compact-player--simple .cp-duration{color:#000}
+.compact-player--simple .cp-wave,.compact-player--simple .cp-wave canvas{height:24px}
+.compact-player--simple .cp-volume .cp-icon img{opacity:1}
+.compact-player--simple-row .cp-volume .cp-icon img{opacity:.55}
+.compact-player--simple-stacked{display:grid;grid-template-columns:32px minmax(0,1fr) auto;gap:8px 14px}
+.compact-player--simple-stacked .cp-wave{grid-column:1/-1;grid-row:1;width:100%}
+.compact-player--simple-stacked .cp-play{grid-column:1;grid-row:2}
+.compact-player--simple-stacked .cp-timers{grid-column:2;grid-row:2}
+.compact-player--simple-stacked .cp-volume{grid-column:3;grid-row:2}
+.compact-player--simple-stacked .cp-volume input{background:#d2d5da}
+@media(max-width:639px){.compact-player--simple{padding:0;gap:10px}.compact-player--simple .cp-timers{font-size:13px}.compact-player--simple .cp-duration{display:inline}.compact-player--simple-stacked{gap:8px 10px}}
