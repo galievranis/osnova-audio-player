@@ -120,3 +120,11 @@
 .compact-player--metadata .cp-speed-wrap{grid-column:5;grid-row:2}
 .compact-player--metadata>a.cp-icon{grid-column:6;grid-row:2}
 @media(max-width:639px){.compact-player--metadata{grid-template-columns:34px minmax(0,1fr) auto auto;gap:10px 8px;padding:12px}.compact-player--metadata .cp-track-info{grid-column:2}.compact-player--metadata .cp-timers{grid-column:2;grid-row:3}.compact-player--metadata .cp-speed-wrap{grid-column:3;grid-row:2}.compact-player--metadata>a.cp-icon{grid-column:4;grid-row:2}}
+.player-variant-tabs{display:flex;gap:6px;overflow-x:auto;padding:0 0 14px;scrollbar-width:thin}
+.player-variant-tabs button{flex-shrink:0;border:0;border-radius:999px;background:#f2f2f2;color:#595959;padding:8px 12px;font:13px/18px Roboto,system-ui,sans-serif;cursor:pointer;white-space:nowrap}
+.player-variant-tabs button:hover{background:#e5e5e5}
+.player-variant-tabs button[aria-selected=true]{background:#e6effd;color:#0b5dd7}
+.player-variant-tabs button:focus-visible{outline:2px solid #0b5dd7;outline-offset:2px}
+.compact-player[hidden]{display:none!important}
+.player-variant-tabs~.compact-player{margin-top:0}
+@media(max-width:639px){.player-variant-tabs{gap:5px}.player-variant-tabs button{padding:7px 10px;font-size:12px}}

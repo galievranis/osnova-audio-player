@@ -48,3 +48,17 @@ new ResizeObserver(()=>draw()).observe(canvas);update();if(!plain)fetch(audio.sr
 mobileViewport.addEventListener('change',e=>{if(e.matches){audio.volume=1;audio.muted=false;volume()}});
 
 });
+
+// Compare one prototype at a time without altering the article around it.
+const playerVariants=Array.from(document.querySelectorAll('.compact-player'));
+const variantNames=['С фоном','С обводкой','Минимальный','С названием'];
+const variantTabs=document.createElement('div');
+variantTabs.className='player-variant-tabs';variantTabs.setAttribute('role','tablist');variantTabs.setAttribute('aria-label','Варианты аудиоплеера');
+let activeVariant=0;try{activeVariant=Math.max(0,Math.min(playerVariants.length-1,Number(localStorage.getItem('player-variant'))||0))}catch{}
+playerVariants.forEach((player,index)=>{
+ const button=document.createElement('button');button.type='button';button.id=`variant-tab-${index}`;button.textContent=`${index+1}. ${variantNames[index]}`;button.setAttribute('role','tab');button.setAttribute('aria-controls',player.id);player.setAttribute('role','tabpanel');player.setAttribute('aria-labelledby',button.id);
+ button.addEventListener('click',()=>selectVariant(index));button.addEventListener('keydown',event=>{let next=index;if(event.key==='ArrowRight')next=(index+1)%playerVariants.length;else if(event.key==='ArrowLeft')next=(index+playerVariants.length-1)%playerVariants.length;else if(event.key==='Home')next=0;else if(event.key==='End')next=playerVariants.length-1;else return;event.preventDefault();selectVariant(next);variantTabs.children[next].focus()});variantTabs.append(button);
+});
+playerVariants[0].before(variantTabs);
+function selectVariant(index){playerVariants.forEach((player,i)=>{const selected=i===index;if(!selected)player.querySelector('audio').pause();player.hidden=!selected;const button=variantTabs.children[i];button.setAttribute('aria-selected',String(selected));button.tabIndex=selected?0:-1});try{localStorage.setItem('player-variant',String(index))}catch{}}
+selectVariant(activeVariant);
