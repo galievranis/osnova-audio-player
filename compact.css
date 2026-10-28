@@ -146,3 +146,8 @@
  .compact-player .cp-volume:hover,.compact-player .cp-volume:has(:focus-visible){gap:4px}
 }
 @media(max-width:639px){.player-variant-tabs{top:72px}.compact-player .cp-volume{display:none}}
+.wave-tuning[hidden]{display:none}
+.wave-tuning-toggle{position:fixed;right:20px;bottom:20px;z-index:21;border:1px solid #e5e5e5;border-radius:999px;padding:11px 16px;background:#fff;color:#0b5dd7;box-shadow:0 4px 20px #0002;font:500 13px/18px Roboto,system-ui,sans-serif;cursor:pointer}
+.wave-tuning-toggle:hover{background:#e6effd}
+.wave-tuning{bottom:76px}
+@media(max-width:639px){.wave-tuning-toggle{right:16px;bottom:calc(20px + env(safe-area-inset-bottom))}.wave-tuning{bottom:calc(76px + env(safe-area-inset-bottom))}}

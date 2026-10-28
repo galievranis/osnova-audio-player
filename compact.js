@@ -66,3 +66,11 @@ selectVariant(activeVariant);
 variantTabs.id='floating-player-variants';
 variantTabs.setAttribute('aria-orientation','vertical');
 document.body.append(variantTabs);
+
+const tuningToggle=document.createElement('button');
+tuningToggle.type='button';tuningToggle.className='wave-tuning-toggle';tuningToggle.textContent='Тюнинг плеера';tuningToggle.setAttribute('aria-expanded','false');tuningToggle.setAttribute('aria-controls','player-tuning-panel');
+tuning.id='player-tuning-panel';tuning.hidden=true;document.body.append(tuningToggle);
+function closeTuning(){tuning.hidden=true;tuningToggle.setAttribute('aria-expanded','false')}
+tuningToggle.addEventListener('click',()=>{tuning.hidden=!tuning.hidden;tuningToggle.setAttribute('aria-expanded',String(!tuning.hidden))});
+document.addEventListener('pointerdown',event=>{if(!tuning.contains(event.target)&&!tuningToggle.contains(event.target))closeTuning()});
+document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!tuning.hidden){closeTuning();tuningToggle.focus()}});
