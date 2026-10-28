@@ -167,3 +167,4 @@
 .compact-player--inline .cp-volume{grid-column:4;grid-row:2}
 .compact-player--inline .cp-speed-wrap{grid-column:5;grid-row:2}
 @media(max-width:639px){.compact-player--inline{grid-template-columns:30px minmax(0,auto) minmax(0,1fr) auto;gap:10px 8px;padding:0}.compact-player--inline .cp-speed-wrap{grid-column:4}.cp-inline-artist,.cp-inline-title{font-size:12px}.compact-player--inline .cp-timers .cp-duration{display:inline}}
+.compact-player--plain .cp-speed-wrap{display:none}
