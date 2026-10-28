@@ -31,12 +31,12 @@
 .cp-tooltip{white-space:nowrap;width:max-content;max-width:none;line-height:16px;box-sizing:border-box}
 
 @media(min-width:640px){
- .compact-player:not(.compact-player--outline):not(.compact-player--plain) .cp-volume input{width:0;opacity:0;pointer-events:none;transition:width .18s ease,opacity .18s ease}
- .compact-player:not(.compact-player--outline):not(.compact-player--plain) .cp-volume{gap:0}
- .compact-player:not(.compact-player--outline):not(.compact-player--plain) .cp-volume:hover input,
- .compact-player:not(.compact-player--outline):not(.compact-player--plain) .cp-volume:has(:focus-visible) input{width:56px;opacity:1;pointer-events:auto}
- .compact-player:not(.compact-player--outline):not(.compact-player--plain) .cp-volume:hover,
- .compact-player:not(.compact-player--outline):not(.compact-player--plain) .cp-volume:has(:focus-visible){gap:4px}
+ .compact-player:not(.compact-player--outline):not(.compact-player--plain):not(.compact-player--metadata) .cp-volume input{width:0;opacity:0;pointer-events:none;transition:width .18s ease,opacity .18s ease}
+ .compact-player:not(.compact-player--outline):not(.compact-player--plain):not(.compact-player--metadata) .cp-volume{gap:0}
+ .compact-player:not(.compact-player--outline):not(.compact-player--plain):not(.compact-player--metadata) .cp-volume:hover input,
+ .compact-player:not(.compact-player--outline):not(.compact-player--plain):not(.compact-player--metadata) .cp-volume:has(:focus-visible) input{width:56px;opacity:1;pointer-events:auto}
+ .compact-player:not(.compact-player--outline):not(.compact-player--plain):not(.compact-player--metadata) .cp-volume:hover,
+ .compact-player:not(.compact-player--outline):not(.compact-player--plain):not(.compact-player--metadata) .cp-volume:has(:focus-visible){gap:4px}
 }
 
 .wave-tuning{display:flex;align-items:center;gap:10px;margin:16px 4px 4px;color:#808080;font:12px/18px Roboto,system-ui,sans-serif}
@@ -59,7 +59,7 @@
 .wave-tuning-row>span{width:16px;flex-shrink:0}
 .compact-player .cp-wave,.compact-player .cp-wave canvas{height:var(--cp-wave-height,32px)}
 @media(max-width:639px){.wave-tuning-row{gap:7px}.wave-tuning-row label{width:95px}}
-.compact-player:not(.compact-player--outline):not(.compact-player--plain) .cp-volume{flex-direction:row-reverse}
+.compact-player:not(.compact-player--outline):not(.compact-player--plain):not(.compact-player--metadata) .cp-volume{flex-direction:row-reverse}
 
 .compact-player{padding:var(--cp-padding-y,12px) var(--cp-padding-x,14px);gap:var(--cp-control-gap,12px)}
 .wave-tuning{width:440px;max-height:calc(100dvh - 110px);overflow:auto}
@@ -71,3 +71,20 @@
 .compact-player--plain .cp-wave,.compact-player--plain .cp-wave canvas{height:32px}
 /* The minimal variant has no internal padding, independently of tuning. */
 .compact-player.compact-player--plain{padding:0}
+
+/* Metadata variant: identity, waveform and controls form three distinct rows. */
+.compact-player--metadata{display:grid;grid-template-columns:48px minmax(0,1fr) auto auto auto;gap:14px 12px;background:#f7f8fa;border:1px solid #e8ebef;border-radius:20px;padding:20px;margin-top:20px}
+.cp-track-info{grid-column:1/5;grid-row:1;display:flex;align-items:center;gap:14px;min-width:0}
+.cp-cover{width:64px;height:64px;border-radius:10px;object-fit:cover;flex-shrink:0}
+.cp-track-copy{display:flex;flex-direction:column;gap:5px;min-width:0;line-height:1.3}
+.cp-track-label{font-size:9px;letter-spacing:1.5px;color:#8a929c}
+.cp-track-copy strong{font-size:17px;font-weight:500;color:#20252b;overflow-wrap:anywhere}
+.cp-track-copy strong span{font-size:13px;font-weight:400;color:#737c86}
+.cp-artist{font-size:13px;color:#737c86}
+.compact-player--metadata .cp-play{grid-column:5;grid-row:1;width:44px;height:44px}
+.compact-player--metadata .cp-wave{grid-column:1/-1;grid-row:2;width:100%}
+.compact-player--metadata .cp-timers{grid-column:1/3;grid-row:3;font-size:12px;font-weight:400}
+.compact-player--metadata .cp-volume{grid-column:3;grid-row:3}
+.compact-player--metadata .cp-speed-wrap{grid-column:4;grid-row:3}
+.compact-player--metadata>a.cp-icon{grid-column:5;grid-row:3;justify-self:center}
+@media(max-width:639px){.compact-player--metadata{padding:16px;gap:12px 8px;border-radius:16px}.cp-cover{width:52px;height:52px}.cp-track-info{gap:10px}.cp-track-copy strong{font-size:15px}.cp-track-copy strong span{display:block;font-size:12px}.cp-track-label{font-size:8px;letter-spacing:1px}.cp-track-copy{gap:4px}}
