@@ -168,3 +168,15 @@
 .compact-player--inline .cp-speed-wrap{grid-column:5;grid-row:2}
 @media(max-width:639px){.compact-player--inline{grid-template-columns:30px minmax(0,auto) minmax(0,1fr) auto;gap:10px 8px;padding:0}.compact-player--inline .cp-speed-wrap{grid-column:4}.cp-inline-artist,.cp-inline-title{font-size:12px}.compact-player--inline .cp-timers .cp-duration{display:inline}}
 .compact-player--plain .cp-speed-wrap{display:none}
+/* Title variant: controls above, progress flush with the lower card border. */
+.compact-player--metadata{position:relative;padding-bottom:18px}
+.compact-player--metadata .cp-play,.compact-player--metadata .cp-track-info,.compact-player--metadata .cp-timers,.compact-player--metadata .cp-volume{grid-row:1}
+.compact-player--metadata .cp-timers{font-size:15px;line-height:20px}
+.compact-player--metadata .cp-speed-wrap{display:none}
+.compact-player--metadata .cp-wave{position:absolute;left:0;right:0;bottom:0;grid-column:auto;grid-row:auto;width:100%;height:6px;margin:0;border-radius:0 0 14px 14px;overflow:hidden}
+.compact-player--metadata .cp-wave canvas{height:6px}
+.compact-player--metadata .cp-tooltip{top:auto;bottom:14px}
+@media(max-width:639px){.compact-player--metadata{padding-bottom:18px;grid-template-columns:34px minmax(0,1fr) auto}.compact-player--metadata .cp-timers{grid-column:3;grid-row:1;font-size:15px}.compact-player--metadata .cp-track-info{grid-column:2;grid-row:1}}
+.compact-player--metadata .cp-wave{height:20px;bottom:-7px;overflow:visible;border-radius:0}
+.compact-player--metadata .cp-wave canvas{position:absolute;top:7px;border-radius:0 0 14px 14px}
+.compact-player--metadata .cp-tooltip{bottom:24px}
