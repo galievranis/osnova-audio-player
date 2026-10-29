@@ -154,19 +154,22 @@
 
 /* Downloads are temporarily hidden in every player. */
 .compact-player a[download]{display:none!important}
-.compact-player--inline{display:grid;grid-template-columns:32px minmax(0,auto) minmax(0,1fr) auto auto;gap:14px 12px;background:transparent;border:0;border-radius:0;padding:0}
-.compact-player--inline .cp-wave{grid-column:1/-1;grid-row:1;margin:0 46px;width:calc(100% - 92px);min-width:0}
-.compact-player--inline .cp-wave,.compact-player--inline .cp-wave canvas{height:24px}
-.compact-player--inline .cp-timers{grid-column:1/-1;grid-row:1;justify-content:space-between;width:100%;pointer-events:none;align-self:center;font-size:12px;font-weight:400}
-.compact-player--inline .cp-time-divider{display:none}
-.compact-player--inline .cp-play{grid-column:1;grid-row:2;width:32px;height:32px;background:transparent;box-shadow:none}
+/* Artist and track: transport row, then metadata aligned with the progress. */
+.compact-player--inline{display:grid;grid-template-columns:24px auto minmax(0,1fr) auto auto;gap:8px 12px;background:transparent;border:0;border-radius:0;padding:0}
+.compact-player--inline .cp-play{grid-column:1;grid-row:1;width:24px;height:24px;padding:0;background:transparent;box-shadow:none;justify-self:start}
 .compact-player--inline .cp-play:hover{background:#f0f0f0;box-shadow:none}
-.compact-player--inline .cp-play img{filter:none;width:24px;height:24px}
-.cp-inline-artist{grid-column:2;grid-row:2;font-size:13px;font-weight:500;line-height:18px;color:#20252b;overflow-wrap:anywhere}
-.cp-inline-title{grid-column:3;grid-row:2;font-size:13px;line-height:18px;color:#595959;overflow-wrap:anywhere}
-.compact-player--inline .cp-volume{grid-column:4;grid-row:2}
-.compact-player--inline .cp-speed-wrap{grid-column:5;grid-row:2}
-@media(max-width:639px){.compact-player--inline{grid-template-columns:30px minmax(0,auto) minmax(0,1fr) auto;gap:10px 8px;padding:0}.compact-player--inline .cp-speed-wrap{grid-column:4}.cp-inline-artist,.cp-inline-title{font-size:12px}.compact-player--inline .cp-timers .cp-duration{display:inline}}
+.compact-player--inline .cp-play img{filter:none;width:24px;height:24px;transform:translateX(-6px)}
+.compact-player--inline .cp-timers{grid-column:2;grid-row:1;width:auto;gap:3px;font-size:13px;font-weight:400;white-space:nowrap}
+.compact-player--inline .cp-time-divider{display:inline}
+.compact-player--inline .cp-timers .cp-duration{display:inline}
+.compact-player--inline .cp-wave{grid-column:3;grid-row:1;width:100%;min-width:0;margin:0}
+.compact-player--inline .cp-wave,.compact-player--inline .cp-wave canvas{height:24px}
+.compact-player--inline .cp-volume{grid-column:4;grid-row:1}
+.compact-player--inline .cp-speed-wrap{grid-column:5;grid-row:1}
+.cp-inline-caption{grid-column:3/-1;grid-row:2;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;min-width:0;line-height:18px}
+.cp-inline-title{font-size:13px;color:#20252b;overflow-wrap:anywhere}
+.cp-inline-artist{font-size:12px;color:#808080;overflow-wrap:anywhere}
+@media(max-width:639px){.compact-player--inline{grid-template-columns:24px auto minmax(0,1fr) auto;gap:8px;padding:0}.compact-player--inline .cp-speed-wrap{grid-column:4}.compact-player--inline .cp-timers{font-size:12px}.cp-inline-caption{grid-column:3/-1}}
 .compact-player--plain .cp-speed-wrap{display:none}
 /* Title variant: controls above, progress flush with the lower card border. */
 .compact-player--metadata{position:relative;padding-bottom:18px}
