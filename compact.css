@@ -298,3 +298,7 @@
 @keyframes cp-dock-soft-in-mobile{from{opacity:0;transform:translate(-50%,6px)}to{opacity:1;transform:translate(-50%,0)}}
 @keyframes cp-dock-soft-out-mobile{from{opacity:1;transform:translate(-50%,0)}to{opacity:0;transform:translate(-50%,4px)}}
 @media(prefers-reduced-motion:reduce){#compact-player.cp-is-floating,#compact-player.cp-is-floating.cp-is-leaving{animation:none}}
+
+/* Sound-reactive circular equalizer around the floating play button. */
+#compact-player .cp-playing-ring{display:none;position:absolute;left:1px;top:1px;width:44px;height:44px;pointer-events:none}
+#compact-player.cp-is-floating .cp-playing-ring{display:block}
