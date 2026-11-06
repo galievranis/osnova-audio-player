@@ -39,7 +39,9 @@ returnToTrack.type='button';returnToTrack.className='cp-icon cp-return-to-track'
 returnToTrack.setAttribute('aria-label','Вернуться в пост с треком');returnToTrack.title='Вернуться в пост с треком';
 returnToTrack.innerHTML='<img src="assets/back-to-post.svg" alt="">';dockedPlayer.append(returnToTrack);
 returnToTrack.addEventListener('click',()=>playerAnchor.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'center'}));
-function alignPlayerDock(){const bounds=playerAnchor.getBoundingClientRect();dockedPlayer.style.setProperty('--cp-dock-left',`${bounds.left}px`);dockedPlayer.style.setProperty('--cp-dock-width',`${bounds.width}px`)}
+const closePlayer=document.createElement('button');closePlayer.type='button';closePlayer.className='cp-icon cp-close-player';closePlayer.setAttribute('aria-label','Закрыть плеер');closePlayer.title='Закрыть плеер';closePlayer.innerHTML='<img src="assets/close-player.svg" alt="">';dockedPlayer.append(closePlayer);
+closePlayer.addEventListener('click',()=>{hasPlayed=false;dockedAudio.pause();updatePlayerDock()});
+function alignPlayerDock(){const bounds=playerAnchor.getBoundingClientRect();dockedPlayer.style.setProperty('--cp-dock-left',`${bounds.left+bounds.width/2}px`);dockedPlayer.style.setProperty('--cp-dock-width',`${bounds.width}px`)}
 function updatePlayerDock(){const floating=!inlinePlayerVisible&&hasPlayed;alignPlayerDock();dockedPlayer.classList.toggle('cp-is-floating',floating);playerAnchor.classList.toggle('cp-holds-floating',floating)}
 const playerVisibility=new IntersectionObserver(entries=>{inlinePlayerVisible=entries[0].isIntersecting;updatePlayerDock()},{rootMargin:'-60px 0px 0px 0px',threshold:0});
 playerVisibility.observe(playerAnchor);
