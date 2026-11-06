@@ -327,3 +327,5 @@
 #compact-player .cp-edge-glow::before{content:"";position:absolute;inset:0;padding:5px;border-radius:inherit;background:linear-gradient(110deg,#6597ff,#9cdfff,#9e91ff,#72d7f2,#6597ff);background-size:250% 100%;-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:cp-edge-drift 4s linear infinite;animation-play-state:paused}
 #compact-player.cp-audio-playing .cp-edge-glow::before{animation-play-state:running}
 @media(prefers-reduced-motion:reduce){#compact-player .cp-edge-glow{transition:none}#compact-player .cp-edge-glow::before{animation:none}}
+
+#compact-player.cp-is-floating::before,#compact-player.cp-is-floating::after,#compact-player .cp-edge-glow,#compact-player .cp-playing-ring{display:none!important}
