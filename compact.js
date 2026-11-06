@@ -26,3 +26,15 @@ mobileViewport.addEventListener('change',e=>{if(e.matches){audio.volume=1;audio.
 
 });
 
+
+// Pin the same live player without cloning or reparenting its audio element.
+const dockedPlayer=document.querySelector('#compact-player');
+const dockedAudio=dockedPlayer.querySelector('audio');
+const playerAnchor=document.createElement('div');
+playerAnchor.className='cp-player-anchor';
+dockedPlayer.before(playerAnchor);playerAnchor.append(dockedPlayer);
+let inlinePlayerVisible=true;
+function updatePlayerDock(){const floating=!inlinePlayerVisible&&!dockedAudio.paused&&!dockedAudio.ended;dockedPlayer.classList.toggle('cp-is-floating',floating);playerAnchor.classList.toggle('cp-holds-floating',floating)}
+const playerVisibility=new IntersectionObserver(entries=>{inlinePlayerVisible=entries[0].isIntersecting;updatePlayerDock()},{rootMargin:'-60px 0px 0px 0px',threshold:0});
+playerVisibility.observe(playerAnchor);
+for(const event of ['play','pause','ended'])dockedAudio.addEventListener(event,updatePlayerDock);
