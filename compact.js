@@ -33,8 +33,18 @@ const dockedAudio=dockedPlayer.querySelector('audio');
 const playerAnchor=document.createElement('div');
 playerAnchor.className='cp-player-anchor';
 dockedPlayer.before(playerAnchor);playerAnchor.append(dockedPlayer);
-let inlinePlayerVisible=true;
-function updatePlayerDock(){const floating=!inlinePlayerVisible&&!dockedAudio.paused&&!dockedAudio.ended;dockedPlayer.classList.toggle('cp-is-floating',floating);playerAnchor.classList.toggle('cp-holds-floating',floating)}
+let inlinePlayerVisible=true,hasPlayed=false;
+const returnToTrack=document.createElement('button');
+returnToTrack.type='button';returnToTrack.className='cp-icon cp-return-to-track';
+returnToTrack.setAttribute('aria-label','Вернуться в пост с треком');returnToTrack.title='Вернуться в пост с треком';
+returnToTrack.innerHTML='<img src="assets/arrow_up.svg" alt="">';dockedPlayer.append(returnToTrack);
+returnToTrack.addEventListener('click',()=>playerAnchor.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'center'}));
+function alignPlayerDock(){const bounds=playerAnchor.getBoundingClientRect();dockedPlayer.style.setProperty('--cp-dock-left',`${bounds.left}px`);dockedPlayer.style.setProperty('--cp-dock-width',`${bounds.width}px`)}
+function updatePlayerDock(){const floating=!inlinePlayerVisible&&hasPlayed;alignPlayerDock();dockedPlayer.classList.toggle('cp-is-floating',floating);playerAnchor.classList.toggle('cp-holds-floating',floating)}
 const playerVisibility=new IntersectionObserver(entries=>{inlinePlayerVisible=entries[0].isIntersecting;updatePlayerDock()},{rootMargin:'-60px 0px 0px 0px',threshold:0});
 playerVisibility.observe(playerAnchor);
-for(const event of ['play','pause','ended'])dockedAudio.addEventListener(event,updatePlayerDock);
+dockedAudio.addEventListener('play',()=>{hasPlayed=true;updatePlayerDock()});
+for(const event of ['pause','ended'])dockedAudio.addEventListener(event,updatePlayerDock);
+new ResizeObserver(alignPlayerDock).observe(playerAnchor);
+window.addEventListener('resize',alignPlayerDock);
+window.addEventListener('scroll',()=>{if(dockedPlayer.classList.contains('cp-is-floating'))alignPlayerDock()},{passive:true});

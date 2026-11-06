@@ -253,3 +253,11 @@
 @media(prefers-reduced-motion:reduce){#compact-player.cp-is-floating{animation:none}}
 
 #compact-player:not(.cp-is-floating){background:#f4f4f4}
+
+#compact-player .cp-return-to-track{display:none}
+#compact-player.cp-is-floating{left:var(--cp-dock-left);width:var(--cp-dock-width);transform:none;background:rgba(244,244,244,.9);-webkit-backdrop-filter:blur(28px);backdrop-filter:blur(28px);animation:cp-dock-content-in .2s ease-out}
+#compact-player.cp-is-floating .cp-return-to-track{display:flex;align-items:center;justify-content:center;flex-shrink:0;border-radius:50%;padding:0;background:transparent}
+#compact-player.cp-is-floating .cp-return-to-track:hover{background:#e5e5e5}
+#compact-player.cp-is-floating .cp-return-to-track img{width:20px;height:20px;filter:brightness(0);opacity:1}
+@keyframes cp-dock-content-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){#compact-player.cp-is-floating{animation:none}}
