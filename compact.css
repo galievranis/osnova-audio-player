@@ -244,3 +244,4 @@
  #compact-player .cp-volume:hover input,#compact-player .cp-volume:has(:focus-visible) input{width:56px;opacity:1;pointer-events:auto}
  #compact-player .cp-volume .cp-icon,#compact-player .cp-volume .cp-icon:hover{background:transparent}
 }
+#compact-player .cp-speed img,#compact-player .cp-volume .cp-icon img{filter:brightness(0);opacity:1}
