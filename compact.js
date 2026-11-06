@@ -62,3 +62,5 @@ for(const event of ['pause','ended'])dockedAudio.addEventListener(event,updatePl
 new ResizeObserver(alignPlayerDock).observe(playerAnchor);
 window.addEventListener('resize',alignPlayerDock);
 window.addEventListener('scroll',()=>{if(dockedPlayer.classList.contains('cp-is-floating'))alignPlayerDock()},{passive:true});
+
+const edgeGlow=document.createElement('span');edgeGlow.className='cp-edge-glow';edgeGlow.setAttribute('aria-hidden','true');dockedPlayer.append(edgeGlow);

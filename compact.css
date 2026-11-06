@@ -319,3 +319,11 @@
 #compact-player.cp-is-floating::before{filter:blur(1.5px)}
 #compact-player.cp-is-floating::after{inset:-5px;padding:6px;filter:blur(7px);z-index:0}
 #compact-player.cp-is-floating.cp-audio-playing::after{opacity:calc(.6 + var(--cp-ambient-level,0) * .4)}
+/* Blur the already masked ring in a separate parent layer. */
+#compact-player.cp-is-floating::before,#compact-player.cp-is-floating::after{display:none}
+#compact-player .cp-edge-glow{display:none;position:absolute;inset:-4px;border-radius:inherit;pointer-events:none;filter:blur(7px);opacity:0;transition:opacity .4s ease;z-index:0}
+#compact-player.cp-is-floating .cp-edge-glow{display:block}
+#compact-player.cp-is-floating.cp-audio-playing .cp-edge-glow{opacity:calc(.7 + var(--cp-ambient-level,0) * .3)}
+#compact-player .cp-edge-glow::before{content:"";position:absolute;inset:0;padding:5px;border-radius:inherit;background:linear-gradient(110deg,#6597ff,#9cdfff,#9e91ff,#72d7f2,#6597ff);background-size:250% 100%;-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:cp-edge-drift 4s linear infinite;animation-play-state:paused}
+#compact-player.cp-audio-playing .cp-edge-glow::before{animation-play-state:running}
+@media(prefers-reduced-motion:reduce){#compact-player .cp-edge-glow{transition:none}#compact-player .cp-edge-glow::before{animation:none}}
