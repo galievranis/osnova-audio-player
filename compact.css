@@ -233,3 +233,14 @@
 #compact-player .cp-speed-wrap{margin-left:-8px}
 @media(min-width:640px){#compact-player .cp-volume:hover,#compact-player .cp-volume:has(:focus-visible){padding-left:8px;gap:1px}}
 @media(max-width:639px){#compact-player{padding:10px;gap:12px}}
+/* Keep control artwork centered and independent of platform image rules. */
+#compact-player .cp-play,#compact-player .cp-speed,#compact-player .cp-volume .cp-icon{display:flex;align-items:center;justify-content:center;line-height:0}
+#compact-player .cp-play img{display:block;filter:brightness(0) invert(1);transform:none}
+#compact-player .cp-speed img,#compact-player .cp-volume .cp-icon img{display:block;object-fit:contain;transform:none}
+#compact-player .cp-volume{flex-shrink:0;overflow:hidden}
+#compact-player .cp-volume input{min-width:0;flex-shrink:0}
+@media(min-width:640px){
+ #compact-player .cp-volume:hover,#compact-player .cp-volume:has(:focus-visible){background:#e5e5e5;padding:0 0 0 8px;gap:1px;border-radius:15px}
+ #compact-player .cp-volume:hover input,#compact-player .cp-volume:has(:focus-visible) input{width:56px;opacity:1;pointer-events:auto}
+ #compact-player .cp-volume .cp-icon,#compact-player .cp-volume .cp-icon:hover{background:transparent}
+}
