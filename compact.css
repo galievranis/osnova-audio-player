@@ -288,3 +288,13 @@
 @media(max-width:639px){#compact-player.cp-is-floating{left:50%;right:auto;padding:8px;transform:translateX(-50%);animation:cp-compact-dock-in .2s ease-out}}
 @media(prefers-reduced-motion:reduce){#compact-player.cp-is-floating{animation:none}}
 #compact-player.cp-is-floating .cp-return-to-track,#compact-player.cp-is-floating .cp-close-player{margin-left:-8px}
+
+/* Subtle entrance and exit for the floating transport. */
+#compact-player.cp-is-floating{animation:cp-dock-soft-in .24s cubic-bezier(.22,.61,.36,1)}
+#compact-player.cp-is-floating.cp-is-leaving{animation:cp-dock-soft-out .18s ease-in forwards;pointer-events:none}
+@keyframes cp-dock-soft-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes cp-dock-soft-out{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(4px)}}
+@media(max-width:639px){#compact-player.cp-is-floating{animation-name:cp-dock-soft-in-mobile}#compact-player.cp-is-floating.cp-is-leaving{animation-name:cp-dock-soft-out-mobile}}
+@keyframes cp-dock-soft-in-mobile{from{opacity:0;transform:translate(-50%,6px)}to{opacity:1;transform:translate(-50%,0)}}
+@keyframes cp-dock-soft-out-mobile{from{opacity:1;transform:translate(-50%,0)}to{opacity:0;transform:translate(-50%,4px)}}
+@media(prefers-reduced-motion:reduce){#compact-player.cp-is-floating,#compact-player.cp-is-floating.cp-is-leaving{animation:none}}

@@ -42,7 +42,17 @@ returnToTrack.addEventListener('click',()=>playerAnchor.scrollIntoView({behavior
 const closePlayer=document.createElement('button');closePlayer.type='button';closePlayer.className='cp-icon cp-close-player';closePlayer.setAttribute('aria-label','Закрыть плеер');closePlayer.title='Закрыть плеер';closePlayer.innerHTML='<img src="assets/close-player.svg" alt="">';dockedPlayer.append(closePlayer);
 closePlayer.addEventListener('click',()=>{hasPlayed=false;dockedAudio.pause();updatePlayerDock()});
 function alignPlayerDock(){const bounds=playerAnchor.getBoundingClientRect();dockedPlayer.style.setProperty('--cp-dock-left',`${bounds.left+bounds.width/2}px`);dockedPlayer.style.setProperty('--cp-dock-width',`${bounds.width}px`)}
-function updatePlayerDock(){const floating=!inlinePlayerVisible&&hasPlayed;alignPlayerDock();dockedPlayer.classList.toggle('cp-is-floating',floating);playerAnchor.classList.toggle('cp-holds-floating',floating)}
+let dockExitTimer;
+function updatePlayerDock(){
+ const floating=!inlinePlayerVisible&&hasPlayed;
+ alignPlayerDock();
+ if(floating){clearTimeout(dockExitTimer);dockedPlayer.classList.remove('cp-is-leaving');dockedPlayer.classList.add('cp-is-floating');playerAnchor.classList.add('cp-holds-floating');return}
+ if(!dockedPlayer.classList.contains('cp-is-floating')||dockedPlayer.classList.contains('cp-is-leaving'))return;
+ if(matchMedia('(prefers-reduced-motion: reduce)').matches){finishDockExit();return}
+ dockedPlayer.classList.add('cp-is-leaving');dockExitTimer=setTimeout(finishDockExit,180);
+}
+function finishDockExit(){dockedPlayer.classList.remove('cp-is-floating','cp-is-leaving');playerAnchor.classList.remove('cp-holds-floating')}
+
 const playerVisibility=new IntersectionObserver(entries=>{inlinePlayerVisible=entries[0].isIntersecting;updatePlayerDock()},{rootMargin:'-60px 0px 0px 0px',threshold:0});
 playerVisibility.observe(playerAnchor);
 dockedAudio.addEventListener('play',()=>{hasPlayed=true;updatePlayerDock()});
