@@ -305,3 +305,10 @@
 
 #compact-player .cp-playing-ring{left:-7px;top:-7px;width:60px;height:60px;z-index:1}
 #compact-player.cp-is-floating .cp-play{position:relative;z-index:2}
+
+/* Subtle blue ambient blobs replace the radial equalizer. */
+#compact-player.cp-is-floating{isolation:isolate}
+#compact-player.cp-is-floating::before{content:"";position:absolute;inset:0;border-radius:inherit;overflow:hidden;pointer-events:none;z-index:-1;background:radial-gradient(ellipse at 18% 65%,rgba(70,125,245,.22),transparent 44%),radial-gradient(ellipse at 68% 20%,rgba(103,163,245,.19),transparent 48%),radial-gradient(ellipse at 90% 85%,rgba(118,116,235,.17),transparent 45%);background-size:135% 180%;filter:blur(9px);opacity:calc(.12 + var(--cp-ambient-level,0) * .65);transition:opacity .15s linear;animation:cp-ambient-drift 7s ease-in-out infinite alternate;animation-play-state:paused}
+#compact-player.cp-is-floating.cp-audio-playing::before{animation-play-state:running}
+@keyframes cp-ambient-drift{0%{background-position:0% 30%}50%{background-position:70% 80%}100%{background-position:100% 20%}}
+@media(prefers-reduced-motion:reduce){#compact-player.cp-is-floating::before{animation:none;opacity:.15;transition:none}}
