@@ -1,5 +1,5 @@
 // Approved player settings; independent of old prototype preferences.
-const waveIntensity=.45;
+const waveIntensity=.7;
 const waveformHeight=16; // Visible bars; canvas includes 3 px of space on each side.
 for(const [name,value] of Object.entries({'--cp-wave-height':`${waveformHeight+6}px`,'--cp-padding-x':'10px','--cp-padding-y':'10px','--cp-control-gap':'12px'}))document.documentElement.style.setProperty(name,value);
 document.querySelectorAll('.compact-player').forEach(player=>{player.hidden=player.id!=='compact-player'});
