@@ -214,3 +214,9 @@
 #compact-player .cp-timer-toggle.is-total .cp-time{opacity:0;transform:translateY(-5px);pointer-events:none}
 #compact-player .cp-timer-toggle.is-total .cp-duration{opacity:1;transform:translateY(0)}
 @media(max-width:639px){#compact-player .cp-volume{display:flex}#compact-player .cp-volume input{display:none!important}}
+/* One expanding hover surface for the complete volume control. */
+#compact-player .cp-volume{border-radius:999px;transition:background .18s ease,padding .18s ease}
+@media(min-width:640px){
+ #compact-player .cp-volume:hover,#compact-player .cp-volume:has(:focus-visible){background:#e5e5e5;padding-left:12px}
+ #compact-player .cp-volume .cp-icon:hover{background:transparent}
+}
