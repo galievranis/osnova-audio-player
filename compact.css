@@ -262,3 +262,10 @@
 @keyframes cp-dock-content-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 @media(prefers-reduced-motion:reduce){#compact-player.cp-is-floating{animation:none}}
 #compact-player.cp-is-floating .cp-return-to-track{margin-left:-8px}
+/* Playback speed popover — final Figma specification. */
+#compact-player .cp-menu{display:flex;flex-direction:column;align-items:center;width:200px;padding:4px 0;border:0;border-radius:24px;background:var(--bg-content-default-day,#fff);box-shadow:0 2px 8px 0 rgba(0,0,0,.15),0 0 1px 0 rgba(0,0,0,.2)}
+#compact-player .cp-menu[hidden]{display:none}
+#compact-player .cp-menu>span{display:none}
+#compact-player .cp-menu button{display:flex;align-items:center;align-self:stretch;height:40px;min-height:40px;width:auto;padding:2px 24px 2px 16px;border-radius:0;background:transparent;color:#000;box-sizing:border-box}
+#compact-player .cp-menu button.selected{align-self:stretch;flex:1 0 auto;height:36px;min-height:36px;margin:2px 6px;padding:0 18px 0 10px;border-radius:18px;background:var(--Surface-surface-secondary,#f2f2f2);color:#000}
+#compact-player .cp-menu button:not(.selected):hover{background:#f2f2f2;border-radius:18px}
