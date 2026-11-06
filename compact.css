@@ -315,3 +315,7 @@
 #compact-player.cp-is-floating.cp-audio-playing::after{opacity:calc(.4 + var(--cp-ambient-level,0) * .5);animation-play-state:running}
 @keyframes cp-edge-drift{from{background-position:0% 50%}to{background-position:100% 50%}}
 @media(prefers-reduced-motion:reduce){#compact-player.cp-is-floating::before,#compact-player.cp-is-floating::after{animation:none;transition:none}}
+/* Diffuse the colored rim and let its halo spread beyond the capsule. */
+#compact-player.cp-is-floating::before{filter:blur(1.5px)}
+#compact-player.cp-is-floating::after{inset:-5px;padding:6px;filter:blur(7px);z-index:0}
+#compact-player.cp-is-floating.cp-audio-playing::after{opacity:calc(.6 + var(--cp-ambient-level,0) * .4)}
