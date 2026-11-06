@@ -1,35 +1,8 @@
-let waveIntensity=1;
-try{const saved=Number(localStorage.getItem('wave-intensity')??100);if(Number.isFinite(saved))waveIntensity=Math.max(0,Math.min(200,saved))/100}catch{}
-const tuning=document.createElement('div');
-tuning.className='wave-tuning';
-tuning.innerHTML=`<div class="wave-tuning-row" data-tuning="intensity"><label for="wave-intensity">Сила анимации</label><input id="wave-intensity" type="range" min="0" max="200" step="1" value="${Math.round(waveIntensity*100)}"><input id="wave-intensity-number" type="number" min="0" max="200" step="1" value="${Math.round(waveIntensity*100)}" aria-label="Сила анимации в процентах"><span>%</span></div>`;
-document.body.append(tuning);
-setIntensity(waveIntensity*100);
-function setIntensity(value){const n=Number(value);if(!Number.isFinite(n))return;waveIntensity=Math.max(0,Math.min(200,n))/100;tuning.querySelectorAll('[data-tuning="intensity"] input').forEach(input=>input.value=Math.round(waveIntensity*100));tuning.querySelector('input[type=range]').style.background=`linear-gradient(to right,#0b5dd7 ${waveIntensity*50}%,#d2d5da ${waveIntensity*50}%)`;try{localStorage.setItem('wave-intensity',String(Math.round(waveIntensity*100)))}catch{}}
-tuning.querySelector('input[type="range"]').addEventListener('input',e=>setIntensity(e.target.value));
-tuning.querySelector('input[type="number"]').addEventListener('input',e=>{if(e.target.value!=='')setIntensity(e.target.value)});
-let waveHeight=26;
-try{const saved=Number(localStorage.getItem('wave-height')??26);if(Number.isFinite(saved))waveHeight=Math.max(8,Math.min(48,saved))}catch{}
-const heightRow=document.createElement('div');heightRow.className='wave-tuning-row';
-heightRow.innerHTML=`<label for="wave-height">Высота волны</label><input id="wave-height" type="range" min="8" max="48" step="1" value="${waveHeight}"><input id="wave-height-number" type="number" min="8" max="48" step="1" value="${waveHeight}" aria-label="Высота волны в пикселях"><span>px</span>`;
-tuning.append(heightRow);
-function setWaveHeight(value){const n=Number(value);if(!Number.isFinite(n))return;waveHeight=Math.max(8,Math.min(48,n));document.documentElement.style.setProperty('--cp-wave-height',`${waveHeight+6}px`);heightRow.querySelectorAll('input').forEach(input=>input.value=waveHeight);heightRow.querySelector('input[type=range]').style.background=`linear-gradient(to right,#0b5dd7 ${(waveHeight-8)/40*100}%,#d2d5da ${(waveHeight-8)/40*100}%)`;try{localStorage.setItem('wave-height',String(waveHeight))}catch{}}
-heightRow.querySelectorAll('input').forEach(input=>input.addEventListener('input',e=>{if(e.target.value!=='')setWaveHeight(e.target.value)}));setWaveHeight(waveHeight);
-const spacingSettings=[
- {key:'padding-x',label:'Отступ по бокам',min:0,max:40,fallback:14,variable:'--cp-padding-x'},
- {key:'padding-y',label:'Отступ по вертикали',min:0,max:32,fallback:12,variable:'--cp-padding-y'},
- {key:'control-gap',label:'Между контролами',min:0,max:32,fallback:12,variable:'--cp-control-gap'}
-];
-spacingSettings.forEach(setting=>{
- let value=setting.fallback;
- try{const saved=Number(localStorage.getItem('wave-'+setting.key)??value);if(Number.isFinite(saved))value=Math.max(setting.min,Math.min(setting.max,saved))}catch{}
- const row=document.createElement('div');row.className='wave-tuning-row';
- row.innerHTML=`<label for="tuning-${setting.key}">${setting.label}</label><input id="tuning-${setting.key}" type="range" min="${setting.min}" max="${setting.max}" step="1" value="${value}"><input type="number" min="${setting.min}" max="${setting.max}" step="1" value="${value}" aria-label="${setting.label}, пиксели"><span>px</span>`;
- tuning.append(row);
- function applySpacing(raw){const number=Number(raw);if(!Number.isFinite(number))return;value=Math.max(setting.min,Math.min(setting.max,number));document.documentElement.style.setProperty(setting.variable,`${value}px`);row.querySelectorAll('input').forEach(input=>input.value=value);const progress=(value-setting.min)/(setting.max-setting.min)*100;row.querySelector('input[type=range]').style.background=`linear-gradient(to right,#0b5dd7 ${progress}%,#d2d5da ${progress}%)`;try{localStorage.setItem('wave-'+setting.key,String(value))}catch{}}
- row.querySelectorAll('input').forEach(input=>input.addEventListener('input',e=>{if(e.target.value!=='')applySpacing(e.target.value)}));applySpacing(value);
-});
-document.querySelectorAll(".compact-player").forEach(root=>{
+// Approved player settings; independent of old prototype preferences.
+const waveIntensity=.45;
+for(const [name,value] of Object.entries({'--cp-wave-height':'23px','--cp-padding-x':'10px','--cp-padding-y':'10px','--cp-control-gap':'12px'}))document.documentElement.style.setProperty(name,value);
+document.querySelectorAll('.compact-player').forEach(player=>{player.hidden=player.id!=='compact-player'});
+document.querySelectorAll("#compact-player").forEach(root=>{
 const plain=root.classList.contains('compact-player--plain')||root.classList.contains('compact-player--metadata')||root.classList.contains('compact-player--inline')||root.classList.contains('compact-player--simple');
 const $=s=>root.querySelector(`[data-control="${s.slice(1)}"]`),audio=$('#cp-audio'),play=$('#cp-play'),canvas=$('#cp-canvas'),ctx=canvas.getContext('2d'),seek=$('#cp-seek');
 const fmt=t=>Number.isFinite(t)?`${String(Math.floor(t/60)).padStart(2,'0')}:${String(Math.floor(t%60)).padStart(2,'0')}`:'0:00';let samples=Array.from({length:160},(_,i)=>.2+Math.abs(Math.sin(i*1.71)*Math.cos(i*.43))*.8),raf,hover=-1,context,analyser,frequencies;let renderedBars=[],lastWaveFrame=0;
@@ -39,6 +12,9 @@ function sync(){play.innerHTML=`<img src="assets/${audio.paused?'play':'pause'}.
 play.onclick=async()=>{try{if(audio.paused){if(!context){context=new AudioContext();analyser=context.createAnalyser();analyser.fftSize=256;frequencies=new Uint8Array(analyser.frequencyBinCount);let source=context.createMediaElementSource(audio);source.connect(analyser);analyser.connect(context.destination)}await context.resume();document.querySelectorAll('.compact-player audio').forEach(other=>{if(other!==audio)other.pause()});await audio.play()}else audio.pause()}catch{$('#cp-error').hidden=false;$('#cp-error').textContent='Не удалось воспроизвести аудио'}};
 for(const event of ['play','pause','ended'])audio.addEventListener(event,sync);
 function update(){if(Number.isFinite(audio.duration))$('#cp-duration').textContent=fmt(audio.duration);$('#cp-time').textContent=fmt(audio.currentTime);seek.value=audio.duration?audio.currentTime/audio.duration*1000:0;seek.setAttribute('aria-valuetext',`${fmt(audio.currentTime)} из ${fmt(audio.duration)}`);if(audio.paused||plain)draw()}
+const timer=root.querySelector('.cp-timers');
+timer.setAttribute('aria-pressed','false');
+timer.onclick=()=>{const total=timer.classList.toggle('is-total');timer.setAttribute('aria-pressed',String(total));timer.setAttribute('aria-label',total?'Общая длительность. Показать текущее время':'Текущее время. Показать общую длительность')};
 for(const event of ['timeupdate','loadedmetadata','durationchange'])audio.addEventListener(event,update);seek.oninput=()=>{if(Number.isFinite(audio.duration))audio.currentTime=seek.value/1000*audio.duration};
 $('#cp-wave').onpointermove=e=>{let r=canvas.getBoundingClientRect();hover=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width));const tooltip=$('#cp-tooltip');tooltip.textContent=fmt(hover*audio.duration);const half=tooltip.offsetWidth/2;tooltip.style.left=`${Math.max(half,Math.min(r.width-half,hover*r.width))}px`;if(audio.paused)draw()};$('#cp-wave').onpointerleave=()=>{hover=-1;if(audio.paused)draw()};
 const menu=$('#cp-menu'),speed=$('#cp-speed');function close(){menu.hidden=true;speed.setAttribute('aria-expanded','false')}speed.onclick=()=>{menu.hidden=!menu.hidden;speed.setAttribute('aria-expanded',!menu.hidden)};menu.onclick=e=>{let b=e.target.closest('[data-rate]');if(!b)return;audio.playbackRate=+b.dataset.rate;speed.textContent=b.dataset.rate+'×';menu.querySelectorAll('button').forEach(x=>x.classList.toggle('selected',x===b));close();speed.focus()};document.addEventListener('pointerdown',e=>{if(!e.target.closest('.cp-speed-wrap'))close()});document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
@@ -49,28 +25,3 @@ mobileViewport.addEventListener('change',e=>{if(e.matches){audio.volume=1;audio.
 
 });
 
-// Compare one prototype at a time without altering the article around it.
-const playerVariants=Array.from(document.querySelectorAll('.compact-player'));
-const variantNames=['С фоном','С обводкой','Минимальный','С названием','Артист и трек','Чёрный · в два ряда','Синий · в один ряд'];
-const variantTabs=document.createElement('div');
-variantTabs.className='player-variant-tabs';variantTabs.setAttribute('role','tablist');variantTabs.setAttribute('aria-label','Варианты аудиоплеера');
-let activeVariant=0;try{activeVariant=Math.max(0,Math.min(playerVariants.length-1,Number(localStorage.getItem('player-variant'))||0))}catch{}
-playerVariants.forEach((player,index)=>{
- const button=document.createElement('button');button.type='button';button.id=`variant-tab-${index}`;button.textContent=`${index+1}. ${variantNames[index]}`;button.setAttribute('role','tab');button.setAttribute('aria-controls',player.id);player.setAttribute('role','tabpanel');player.setAttribute('aria-labelledby',button.id);
- button.addEventListener('click',()=>selectVariant(index));button.addEventListener('keydown',event=>{let next=index;if(event.key==='ArrowRight'||event.key==='ArrowDown')next=(index+1)%playerVariants.length;else if(event.key==='ArrowLeft'||event.key==='ArrowUp')next=(index+playerVariants.length-1)%playerVariants.length;else if(event.key==='Home')next=0;else if(event.key==='End')next=playerVariants.length-1;else return;event.preventDefault();selectVariant(next);variantTabs.children[next].focus()});variantTabs.append(button);
-});
-playerVariants[0].before(variantTabs);
-function selectVariant(index){playerVariants.forEach((player,i)=>{const selected=i===index;if(!selected)player.querySelector('audio').pause();player.hidden=!selected;const button=variantTabs.children[i];button.setAttribute('aria-selected',String(selected));button.tabIndex=selected?0:-1});try{localStorage.setItem('player-variant',String(index))}catch{}}
-selectVariant(activeVariant);
-
-variantTabs.id='floating-player-variants';
-variantTabs.setAttribute('aria-orientation','vertical');
-document.body.append(variantTabs);
-
-const tuningToggle=document.createElement('button');
-tuningToggle.type='button';tuningToggle.className='wave-tuning-toggle';tuningToggle.textContent='Тюнинг плеера';tuningToggle.setAttribute('aria-expanded','false');tuningToggle.setAttribute('aria-controls','player-tuning-panel');
-tuning.id='player-tuning-panel';tuning.hidden=true;document.body.append(tuningToggle);
-function closeTuning(){tuning.hidden=true;tuningToggle.setAttribute('aria-expanded','false')}
-tuningToggle.addEventListener('click',()=>{tuning.hidden=!tuning.hidden;tuningToggle.setAttribute('aria-expanded',String(!tuning.hidden))});
-document.addEventListener('pointerdown',event=>{if(!tuning.contains(event.target)&&!tuningToggle.contains(event.target))closeTuning()});
-document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!tuning.hidden){closeTuning();tuningToggle.focus()}});

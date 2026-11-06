@@ -203,3 +203,14 @@
 .compact-player--simple-stacked .cp-volume{grid-column:3;grid-row:2}
 .compact-player--simple-stacked .cp-volume input{background:#d2d5da}
 @media(max-width:639px){.compact-player--simple{padding:0;gap:10px}.compact-player--simple .cp-timers{font-size:13px}.compact-player--simple .cp-duration{display:inline}.compact-player--simple-stacked{gap:8px 10px}}
+
+/* Selected production candidate. */
+.player-variant-tabs,.player-variant-toggle,.wave-tuning,.wave-tuning-toggle{display:none!important}
+#compact-player .cp-speed-wrap{margin-left:-8px}
+#compact-player .cp-timer-toggle{display:grid;grid-template-columns:1fr;grid-template-rows:1fr;align-items:center;padding:0;min-width:36px;background:none;border:0;color:#595959;font:500 13px/18px Roboto,system-ui,sans-serif;cursor:pointer}
+#compact-player .cp-timer-toggle .cp-time-divider{display:none}
+#compact-player .cp-timer-toggle .cp-time,#compact-player .cp-timer-toggle .cp-duration{grid-area:1/1;display:block;font:inherit;color:inherit;transition:opacity .18s ease,transform .18s ease}
+#compact-player .cp-timer-toggle .cp-duration{opacity:0;transform:translateY(5px);pointer-events:none}
+#compact-player .cp-timer-toggle.is-total .cp-time{opacity:0;transform:translateY(-5px);pointer-events:none}
+#compact-player .cp-timer-toggle.is-total .cp-duration{opacity:1;transform:translateY(0)}
+@media(max-width:639px){#compact-player .cp-volume{display:flex}#compact-player .cp-volume input{display:none!important}}
