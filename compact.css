@@ -302,3 +302,6 @@
 /* Sound-reactive circular equalizer around the floating play button. */
 #compact-player .cp-playing-ring{display:none;position:absolute;left:1px;top:1px;width:44px;height:44px;pointer-events:none}
 #compact-player.cp-is-floating .cp-playing-ring{display:block}
+
+#compact-player .cp-playing-ring{left:-7px;top:-7px;width:60px;height:60px;z-index:1}
+#compact-player.cp-is-floating .cp-play{position:relative;z-index:2}
