@@ -329,3 +329,9 @@
 @media(prefers-reduced-motion:reduce){#compact-player .cp-edge-glow{transition:none}#compact-player .cp-edge-glow::before{animation:none}}
 
 #compact-player.cp-is-floating::before,#compact-player.cp-is-floating::after,#compact-player .cp-edge-glow,#compact-player .cp-playing-ring{display:none!important}
+
+/* Restore the inline start padding omitted from the captured post styles. */
+.forgotten-post-copy .block-text,
+.forgotten-post-copy .block-header {
+  padding-inline-start: var(--layout-content-offset-x);
+}
