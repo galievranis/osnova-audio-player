@@ -330,8 +330,8 @@
 
 #compact-player.cp-is-floating::before,#compact-player.cp-is-floating::after,#compact-player .cp-edge-glow,#compact-player .cp-playing-ring{display:none!important}
 
-/* Restore the inline start padding omitted from the captured post styles. */
+/* Align text and headings with the audio block. */
 .forgotten-post-copy .block-text,
 .forgotten-post-copy .block-header {
-  padding-inline-start: var(--layout-content-offset-x);
+  padding-left: var(--layout-content-offset-x, 16px);
 }
