@@ -50,6 +50,7 @@ function showAudioState(state) {
   picker.hidden = state !== 'pick';
   upload.hidden = state !== 'loading';
   playerShell.hidden = state === 'pick';
+  playerShell.dataset.state = state;
   player.inert = state === 'loading';
 }
 
@@ -89,11 +90,11 @@ async function addAudio(file) {
   const {signal} = controller;
   activeUpload = controller;
   showAudioState('loading');
-  const minimumSpinnerTime = new Promise(resolve => setTimeout(resolve, 1700));
+  const minimumLoadingTime = new Promise(resolve => setTimeout(resolve, 1700));
 
   try {
     audioUrl = URL.createObjectURL(file);
-    await Promise.all([waitForMetadata(audioUrl, signal), minimumSpinnerTime]);
+    await Promise.all([waitForMetadata(audioUrl, signal), minimumLoadingTime]);
     signal.throwIfAborted();
 
     byId('cp-error').hidden = true;
