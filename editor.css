@@ -1,0 +1,134 @@
+[hidden] { display: none !important; }
+
+.audio-editor {
+  margin: 0;
+  font-family: Roboto, sans-serif;
+  color: var(--theme-color-text-primary);
+  background: var(--theme-color-background);
+  --layout-modal-border-radius-smooth: 24px;
+}
+
+.editor-underlay {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  pointer-events: none;
+}
+
+.audio-editor .modal-fullpage { z-index: 1; }
+.audio-editor .modal-fullpage__inner { overflow: hidden; }
+.editor {
+  --content-width: var(--layout-max-content-width);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
+}
+.editor-topic-picker__inner .author { display: flex; align-items: center; gap: 8px; }
+.editor-avatar { border-radius: 50%; object-fit: cover; }
+.editor-topic-picker__topic { display: inline-flex; align-items: center; }
+.editor__body { flex: 1; overflow: auto; }
+.editor-tool-input:focus { outline: none; }
+.editor-tool-input:empty::before { content: attr(data-placeholder); color: var(--theme-color-text-secondary); }
+.editor-tool-input p { margin: 0; }
+.editor-control-bar { flex: none; }
+.editor-insert-row { position: relative; }
+.editor-block-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 2;
+  width: 180px;
+  padding: 8px;
+  border-radius: 12px;
+  background: var(--theme-color-background-content);
+  box-shadow: 0 2px 8px #0003;
+}
+.editor-block-menu span { display: block; padding: 4px 8px; }
+.editor-block-menu button { display: flex; align-items: center; gap: 8px; padding: 8px; width: 100%; }
+.editor-block-menu button:hover { background: var(--theme-color-button-minimal-hover); }
+#editor-audio { position: relative; }
+.editor-audio-actions { position: absolute; z-index: 3; top: 10px; right: calc(100% + 14px); }
+.editor-audio-settings.icon-button {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--theme-color-button-minimal);
+}
+.editor-block-grip {
+  width: 10px;
+  height: 15px;
+  background: radial-gradient(circle, currentColor 1.3px, transparent 1.6px) 0 0 / 5px 5px;
+}
+#audio-settings-menu { width: max-content; }
+#audio-settings-menu button { border-radius: 6px; white-space: nowrap; }
+#audio-settings-menu button + button { margin-top: 4px; }
+
+.editor-audio-player-shell { position: relative; }
+.editor-upload {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: rgb(244 244 244 / 85%);
+}
+.editor-upload-spinner {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  border: 2px solid rgb(0 0 0 / 15%);
+  border-top-color: var(--theme-color-signal-active-default);
+  border-radius: 50%;
+  animation: editor-spin .7s linear infinite;
+}
+@keyframes editor-spin { to { transform: rotate(1turn); } }
+@media (prefers-reduced-motion: reduce) {
+  .editor-upload-spinner { animation: none; }
+}
+@media (max-width: 719px) {
+  #editor-audio { padding-left: 42px; }
+  .editor-audio-actions { left: 0; right: auto; }
+}
+.editor-audio-error { margin-block: 8px 0; color: #b3261e; font-size: 14px; }
+
+@media (max-width: 924px) {
+  .audio-editor .modal-fullpage__controls { top: 8px; }
+  .editor-topic-picker__inner { padding-top: 16px; }
+  .editor-control-bar { padding-right: 94px; padding-top: 4px; }
+  .editor-control-bar__controls { margin-left: 0; padding-left: var(--layout-content-offset-x); }
+}
+
+.editor-topic-picker__inner .author__main { display: grid; gap: 2px; }
+.editor-topic-picker__inner .author__details { line-height: 16px; }
+
+@media (max-width: 924px) {
+  .audio-editor #editor-maximize { display: none; }
+  .editor-control-bar { padding-right: 52px; }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .editor-audio-settings {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  #editor-audio:hover .editor-audio-settings,
+  .editor-audio-settings:focus-visible,
+  .editor-audio-settings[aria-expanded="true"] {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .editor-audio-actions::after {
+    content: "";
+    position: absolute;
+    inset: 0 -14px 0 100%;
+  }
+
+  #editor-audio:not(:hover) .editor-audio-actions::after {
+    pointer-events: none;
+  }
+}
