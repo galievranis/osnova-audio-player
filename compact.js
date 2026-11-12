@@ -61,42 +61,6 @@ mobileViewport.addEventListener('change',e=>{if(e.matches){audio.volume=1;audio.
 });
 
 
-// Pin the same live player without cloning or reparenting its audio element.
-const dockedPlayer=document.querySelector('#compact-player');
-if (dockedPlayer && !dockedPlayer.hasAttribute('data-inline-only')) {
-  const dockedAudio=dockedPlayer.querySelector('audio');
-  const playerAnchor=document.createElement('div');
-  playerAnchor.className='cp-player-anchor';
-  dockedPlayer.before(playerAnchor);playerAnchor.append(dockedPlayer);
-  let inlinePlayerVisible=true,hasPlayed=false;
-  const returnToTrack=document.createElement('button');
-  returnToTrack.type='button';returnToTrack.className='cp-icon cp-return-to-track';
-  returnToTrack.setAttribute('aria-label','Вернуться в пост с треком');returnToTrack.title='Вернуться в пост с треком';
-  returnToTrack.innerHTML='<img src="assets/back-to-post.svg" alt="">';dockedPlayer.append(returnToTrack);
-  returnToTrack.addEventListener('click',()=>playerAnchor.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'center'}));
-  const closePlayer=document.createElement('button');closePlayer.type='button';closePlayer.className='cp-icon cp-close-player';closePlayer.setAttribute('aria-label','Закрыть плеер');closePlayer.title='Закрыть плеер';closePlayer.innerHTML='<img src="assets/close-player.svg" alt="">';dockedPlayer.append(closePlayer);
-  closePlayer.addEventListener('click',()=>{hasPlayed=false;dockedAudio.pause();updatePlayerDock()});
-  function alignPlayerDock(){const bounds=playerAnchor.getBoundingClientRect();dockedPlayer.style.setProperty('--cp-dock-left',`${bounds.left+bounds.width/2}px`);dockedPlayer.style.setProperty('--cp-dock-width',`${bounds.width}px`)}
-  let dockExitTimer;
-  function updatePlayerDock(){
-   const floating=!inlinePlayerVisible&&hasPlayed;
-   alignPlayerDock();
-   if(floating){clearTimeout(dockExitTimer);dockedPlayer.classList.remove('cp-is-leaving');dockedPlayer.classList.add('cp-is-floating');playerAnchor.classList.add('cp-holds-floating');return}
-   if(!dockedPlayer.classList.contains('cp-is-floating')||dockedPlayer.classList.contains('cp-is-leaving'))return;
-   if(matchMedia('(prefers-reduced-motion: reduce)').matches){finishDockExit();return}
-   dockedPlayer.classList.add('cp-is-leaving');dockExitTimer=setTimeout(finishDockExit,180);
-  }
-  function finishDockExit(){dockedPlayer.classList.remove('cp-is-floating','cp-is-leaving');playerAnchor.classList.remove('cp-holds-floating')}
-
-  const playerVisibility=new IntersectionObserver(entries=>{inlinePlayerVisible=entries[0].isIntersecting;updatePlayerDock()},{rootMargin:'-60px 0px 0px 0px',threshold:0});
-  playerVisibility.observe(playerAnchor);
-  dockedAudio.addEventListener('play',()=>{hasPlayed=true;updatePlayerDock()});
-  for(const event of ['pause','ended'])dockedAudio.addEventListener(event,updatePlayerDock);
-  new ResizeObserver(alignPlayerDock).observe(playerAnchor);
-  window.addEventListener('resize',alignPlayerDock);
-  window.addEventListener('scroll',()=>{if(dockedPlayer.classList.contains('cp-is-floating'))alignPlayerDock()},{passive:true});
-}
-
 const postActionDock = document.querySelector('.post-action-dock');
 if (postActionDock) {
   const postEnd = postActionDock.parentElement.querySelector('.content__reactions');
